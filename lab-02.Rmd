@@ -92,9 +92,16 @@ plastic_data_all %>% count(region) %>% arrange(desc(n)) %>% head(1)
 
 ```{r Ex2, message = FALSE}
 # Write your code here to answer exercise 2
+plastic_data_all <- mutate(plastic_data_all , 
+       total_mismanage_plastic = mismanaged_plastic * population)
 
-
-
+ plastic_data_all %>% group_by(region) %>% summarise ( avg_plastic = mean (total_mismanage_plastic) )
+ 
+  plastic_data_all %>% group_by(region) %>% summarise ( avg_plastic = mean (total_mismanage_plastic) ) %>% arrange(desc(avg_plastic)) %>% head(1)
+  
+    plastic_data_all %>% group_by(region) %>% summarise ( avg_plastic = mean (total_mismanage_plastic) ) %>% arrange(desc(avg_plastic)) %>% tail(1)
+  
+  
 ```
 
 
