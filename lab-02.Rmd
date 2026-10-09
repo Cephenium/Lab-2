@@ -93,13 +93,13 @@ plastic_data_all %>% count(region) %>% arrange(desc(n)) %>% head(1)
 ```{r Ex2, message = FALSE}
 # Write your code here to answer exercise 2
 plastic_data_all <- mutate(plastic_data_all , 
-       total_mismanage_plastic = mismanaged_plastic * population)
+       total_mismanaged_plastic = mismanaged_plastic * population)
 
- plastic_data_all %>% group_by(region) %>% summarise ( avg_plastic = mean (total_mismanage_plastic) )
+ plastic_data_all %>% group_by(region) %>% summarise ( avg_plastic = mean (total_mismanaged_plastic) )
  
-  plastic_data_all %>% group_by(region) %>% summarise ( avg_plastic = mean (total_mismanage_plastic) ) %>% arrange(desc(avg_plastic)) %>% head(1)
+  plastic_data_all %>% group_by(region) %>% summarise ( avg_plastic = mean (total_mismanaged_plastic) ) %>% arrange(desc(avg_plastic)) %>% head(1)
   
-    plastic_data_all %>% group_by(region) %>% summarise ( avg_plastic = mean (total_mismanage_plastic) ) %>% arrange(desc(avg_plastic)) %>% tail(1)
+    plastic_data_all %>% group_by(region) %>% summarise ( avg_plastic = mean (total_mismanaged_plastic) ) %>% arrange(desc(avg_plastic)) %>% tail(1)
   
   
 ```
@@ -109,6 +109,12 @@ plastic_data_all <- mutate(plastic_data_all ,
 
 ```{r Ex3, message = FALSE}
 # Write your code here to answer exercise 3
+
+plastic_data_all <- mutate(plastic_data_all, pct_mismanaged_plastic_ocean = mismanaged_plastic_ocean / total_mismanaged_plastic * 100)
+
+plastic_data_all %>% drop_na() %>% group_by(region) %>% summarise (median_pct_mismanaged_ocean = median(total_mismanaged_plastic))
+
+plastic_data_all %>% group_by(region) %>% summarise (median_pct_mismanaged_ocean = median(total_mismanaged_plastic, na.rm=TRUE))
 
 
 

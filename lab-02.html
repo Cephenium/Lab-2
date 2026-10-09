@@ -442,9 +442,9 @@ plastic_data_all %&gt;% count(region)</code></pre>
 <h3>Ex 2.</h3>
 <pre class="r"><code># Write your code here to answer exercise 2
 plastic_data_all &lt;- mutate(plastic_data_all , 
-       total_mismanage_plastic = mismanaged_plastic * population)
+       total_mismanaged_plastic = mismanaged_plastic * population)
 
- plastic_data_all %&gt;% group_by(region) %&gt;% summarise ( avg_plastic = mean (total_mismanage_plastic) )</code></pre>
+ plastic_data_all %&gt;% group_by(region) %&gt;% summarise ( avg_plastic = mean (total_mismanaged_plastic) )</code></pre>
 <pre><code>## # A tibble: 6 × 2
 ##   region                          avg_plastic
 ##   &lt;chr&gt;                                 &lt;dbl&gt;
@@ -454,12 +454,12 @@ plastic_data_all &lt;- mutate(plastic_data_all ,
 ## 4 Latin America and The Caribbean     193450.
 ## 5 North America                       147190.
 ## 6 Oceania                              14577.</code></pre>
-<pre class="r"><code>  plastic_data_all %&gt;% group_by(region) %&gt;% summarise ( avg_plastic = mean (total_mismanage_plastic) ) %&gt;% arrange(desc(avg_plastic)) %&gt;% head(1)</code></pre>
+<pre class="r"><code>  plastic_data_all %&gt;% group_by(region) %&gt;% summarise ( avg_plastic = mean (total_mismanaged_plastic) ) %&gt;% arrange(desc(avg_plastic)) %&gt;% head(1)</code></pre>
 <pre><code>## # A tibble: 1 × 2
 ##   region avg_plastic
 ##   &lt;chr&gt;        &lt;dbl&gt;
 ## 1 Asia      1026059.</code></pre>
-<pre class="r"><code>    plastic_data_all %&gt;% group_by(region) %&gt;% summarise ( avg_plastic = mean (total_mismanage_plastic) ) %&gt;% arrange(desc(avg_plastic)) %&gt;% tail(1)</code></pre>
+<pre class="r"><code>    plastic_data_all %&gt;% group_by(region) %&gt;% summarise ( avg_plastic = mean (total_mismanaged_plastic) ) %&gt;% arrange(desc(avg_plastic)) %&gt;% tail(1)</code></pre>
 <pre><code>## # A tibble: 1 × 2
 ##   region  avg_plastic
 ##   &lt;chr&gt;         &lt;dbl&gt;
@@ -467,7 +467,30 @@ plastic_data_all &lt;- mutate(plastic_data_all ,
 </div>
 <div id="ex-3." class="section level3">
 <h3>Ex 3.</h3>
-<pre class="r"><code># Write your code here to answer exercise 3</code></pre>
+<pre class="r"><code># Write your code here to answer exercise 3
+
+plastic_data_all &lt;- mutate(plastic_data_all, pct_mismanaged_plastic_ocean = mismanaged_plastic_ocean / total_mismanaged_plastic * 100)
+
+plastic_data_all %&gt;% drop_na() %&gt;% group_by(region) %&gt;% summarise (median_pct_mismanaged_ocean = median(total_mismanaged_plastic))</code></pre>
+<pre><code>## # A tibble: 6 × 2
+##   region                          median_pct_mismanaged_ocean
+##   &lt;chr&gt;                                                 &lt;dbl&gt;
+## 1 Africa                                              107798.
+## 2 Asia                                                 35454.
+## 3 Europe                                                3839.
+## 4 Latin America and The Caribbean                      29500.
+## 5 North America                                       147190.
+## 6 Oceania                                               1806.</code></pre>
+<pre class="r"><code>plastic_data_all %&gt;% group_by(region) %&gt;% summarise (median_pct_mismanaged_ocean = median(total_mismanaged_plastic, na.rm=TRUE))</code></pre>
+<pre><code>## # A tibble: 6 × 2
+##   region                          median_pct_mismanaged_ocean
+##   &lt;chr&gt;                                                 &lt;dbl&gt;
+## 1 Africa                                               92879.
+## 2 Asia                                                 35454.
+## 3 Europe                                                3839.
+## 4 Latin America and The Caribbean                      29500.
+## 5 North America                                       147190.
+## 6 Oceania                                               1806.</code></pre>
 </div>
 <div id="ex-4." class="section level3">
 <h3>Ex 4.</h3>
